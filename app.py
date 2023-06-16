@@ -3,7 +3,7 @@ from api_github import repos
 import time
 
 TOKEN = config('TOKEN', default=None)
-IGNORE = config('IGNORE', cast=lambda v: [s.strip() for s in v.split(',')], default=[])
+
 
 ta = time.time()
 ret = repos.porcent_repo(TOKEN)

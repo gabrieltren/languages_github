@@ -1,4 +1,8 @@
 from .api_consume import api_github_get
+from decouple import config
+
+IGNORE = config('IGNORE', cast=lambda v: [s.strip() for s in v.split(',')], default=[])
+
 
 def repos_user(token):
     url = 'https://api.github.com/user/repos'
@@ -29,7 +33,7 @@ def repositories_languages(token):
         lg = languages(token, repos['languages_url'])
         if len(lg.keys()) > 0:
             for k, v in lg.items():
-                if k not in ['Jupyter Notebook', 'Procfile']:
+                if k not in IGNORE:
                     # print(k, v)
                     totalizers['total'] +=int(v)
                     totalizers[k] = totalizers[k] + v if totalizers.get(k, None) else v
